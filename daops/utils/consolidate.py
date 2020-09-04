@@ -32,8 +32,9 @@ def consolidate(collection, **kwargs):
 
         if "time" in kwargs:
             time = kwargs["time"].tuple
-            # need int(_.split('-')[0] if passing in more than year from TimeParameter
-            required_years = set(range(*[int(_) for _ in time]))
+            # need int(_.split('-')[0]) if passing in more than year from TimeParameter
+            # only need int(_) if just using year
+            required_years = set(range(*[int(_.split('-')[0]) for _ in time]))
 
             file_paths = glob.glob(consolidated)
             print(f"[INFO] Testing {len(file_paths)} files in time range: ...")

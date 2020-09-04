@@ -36,7 +36,7 @@ def test_subset_zostoga_with_fix():
     )
     assert result.file_paths == ["outputs/output.nc"]
     ds = xr.open_dataset("outputs/output.nc", use_cftime=True)
-    assert ds.time.shape == (192,)
+    assert ds.time.shape == (193,)
     assert "lev" not in ds.dims
 
 
@@ -49,7 +49,7 @@ def test_subset_t():
     )
     assert result.file_paths == ["outputs/output.nc"]
     ds = xr.open_dataset("outputs/output.nc", use_cftime=True)
-    assert ds.time.shape == (433,)
+    assert ds.time.shape == (434,)
 
 
 @pytest.mark.online
@@ -98,7 +98,7 @@ def test_subset_t_y_x():
     assert result.file_paths == ["outputs/output.nc"]
 
     ds_subset = xr.open_dataset("outputs/output.nc", use_cftime=True)
-    assert ds_subset.tas.shape == (433, 1, 1)
+    assert ds_subset.tas.shape == (434, 1, 1)
 
 
 @pytest.mark.online
@@ -142,7 +142,7 @@ def test_subset_with_fix_and_multiple_ids(zostoga_id):
     assert result.file_paths == ["outputs/output.nc"]
 
     ds = xr.open_dataset("outputs/output.nc", use_cftime=True)
-    assert ds.time.shape == (252,)  # all datasets have the same time shape
+    assert ds.time.shape == (253,)  # all datasets have the same time shape
     assert "lev" not in ds.dims  # checking that lev has been removed by fix
     ds.close()
 
@@ -162,4 +162,4 @@ def test_parameter_classes_as_args():
     assert result.file_paths == ["outputs/output.nc"]
 
     ds_subset = xr.open_dataset("outputs/output.nc", use_cftime=True)
-    assert ds_subset.tas.shape == (433, 1, 1)
+    assert ds_subset.tas.shape == (434, 1, 1)
