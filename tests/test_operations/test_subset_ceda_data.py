@@ -11,7 +11,7 @@ def _check_output_nc(result, fname="output_001.nc"):
     assert fname in [os.path.basename(_) for _ in result.file_uris]
 
 
-def test_subset_t(tmpdir):
+def test_subset_t(tmpdir, load_ceda_test_data):
     result = subset(
         CRU_TS_WET_ID,
         time=("2085-01-16", "2120-12-16"),

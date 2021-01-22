@@ -10,6 +10,8 @@ ROOCS_CFG = os.path.join(tempfile.gettempdir(), "roocs.ini")
 
 MINI_ESGF_CACHE_DIR = Path.home() / ".mini-esgf-data"
 MINI_ESGF_MASTER_DIR = os.path.join(MINI_ESGF_CACHE_DIR, "master")
+MINI_CEDA_CACHE_DIR = Path.home() / ".mini-ceda-archive"
+MINI_CEDA_MASTER_DIR = os.path.join(MINI_CEDA_CACHE_DIR, "master")
 
 try:
     os.mkdir(TESTS_OUTPUTS)
@@ -41,6 +43,7 @@ def write_roocs_cfg():
     base_dir = {{ ceda_base_dir }}/archive/badc/cru/data/cru_ts
     file_name_template = {__derive__var_id}_{frequency}_{__derive__time_range}.{__derive__extension}
     fixed_path_mappings =
+<<<<<<< HEAD
         cru_ts.4.04.cld:cru_ts_4.04/data/cld/*.nc
         cru_ts.4.04.dtr:cru_ts_4.04/data/dtr/*.nc
         cru_ts.4.04.frs:cru_ts_4.04/data/frs/*.nc
@@ -51,11 +54,24 @@ def write_roocs_cfg():
         cru_ts.4.04.tmx:cru_ts_4.04/data/tmx/*.nc
         cru_ts.4.04.vap:cru_ts_4.04/data/vap/*.nc
         cru_ts.4.04.wet:cru_ts_4.04/data/wet/*.nc
+=======
+        cru_ts.4.04.cld:_4.04/data/cld/*.nc
+        cru_ts.4.04.dtr:_4.04/data/dtr/*.nc
+        cru_ts.4.04.frs:_4.04/data/frs/*.nc
+        cru_ts.4.04.pet:_4.04/data/pet/*.nc
+        cru_ts.4.04.pre:_4.04/data/pre/*.nc
+        cru_ts.4.04.tmn:_4.04/data/tmn/*.nc
+        cru_ts.4.04.tmp:_4.04/data/tmp/*.nc
+        cru_ts.4.04.tmx:_4.04/data/tmx/*.nc
+        cru_ts.4.04.vap:_4.04/data/vap/*.nc
+        cru_ts.4.04.wet:_4.04/data/wet/*.nc
+>>>>>>> ceda-wps-dev
     attr_defaults =
         frequency:mon
     facet_rule = project version_major version_minor variable
     """
-    cfg = Template(cfg_templ).render(base_dir=MINI_ESGF_MASTER_DIR)
+    cfg = Template(cfg_templ).render(base_dir=MINI_ESGF_MASTER_DIR,
+                                     ceda_base_dir=MINI_CEDA_MASTER_DIR)
     with open(ROOCS_CFG, "w") as fp:
         fp.write(cfg)
 
