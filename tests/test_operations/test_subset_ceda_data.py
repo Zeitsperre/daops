@@ -14,10 +14,11 @@ def _check_output_nc(result, fname="output_001.nc"):
 def test_subset_t(tmpdir, load_ceda_test_data):
     result = subset(
         CRU_TS_WET_ID,
-        time=("2085-01-16", "2120-12-16"),
+        time=("1955-01-16", "2011-12-16"),
         output_dir=tmpdir,
         file_namer="simple",
+        apply_fixes=False
     )
     _check_output_nc(result)
     ds = xr.open_dataset(result.file_uris[0], use_cftime=True)
-    assert ds.time.shape == (433,)
+    assert ds.time.shape == (684,)
