@@ -6,11 +6,15 @@ import pandas as pd
 import pytest
 import xarray as xr
 
-from tests._common import MINI_ESGF_CACHE_DIR, write_roocs_cfg, MINI_ESGF_MASTER_DIR
+from tests._common import (
+    MINI_ESGF_CACHE_DIR, write_roocs_cfg, MINI_ESGF_MASTER_DIR,
+    MINI_CEDA_CACHE_DIR, MINI_CEDA_MASTER_DIR
+)
 
 write_roocs_cfg()
 
 ESGF_TEST_DATA_REPO_URL = "https://github.com/roocs/mini-esgf-data"
+CEDA_TEST_DATA_REPO_URL = "https://github.com/cedadev/mini-ceda-archive"
 
 
 @pytest.fixture
@@ -34,4 +38,23 @@ def load_esgf_test_data():
         os.system(f"git clone {ESGF_TEST_DATA_REPO_URL} {tmp_repo}")
 
         shutil.move(test_data_dir, MINI_ESGF_MASTER_DIR)
+        shutil.rmtree(tmp_repo)
+
+
+# Fixture to load mini-esgf-data repository used by roocs tests
+@pytest.fixture
+def load_ceda_test_data():
+    """
+    This fixture ensures that the required test data repository
+    has been cloned to the cache directory within the home directory.
+    """
+    tmp_repo = "/tmp/.mini-ceda-archive"
+    test_data_dir = os.path.join(tmp_repo, "archive")
+
+    if not os.path.isdir(MINI_CEDA_MASTER_DIR):
+
+        os.makedirs(MINI_CEDA_MASTER_DIR)
+        os.system(f"git clone {CEDA_TEST_DATA_REPO_URL} {tmp_repo}")
+
+        shutil.move(test_data_dir, MINI_CEDA_MASTER_DIR)
         shutil.rmtree(tmp_repo)
